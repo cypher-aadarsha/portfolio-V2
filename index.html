@@ -5,15 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aadarsha Jha - BSc. CSIT Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Styles */
+        /* --- Base Styles --- */
         body {
             font-family: 'Inter', sans-serif;
         }
+
+        /* --- Preloader for Vibrant Initial Load --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-out;
+        }
+        html.dark #preloader {
+            background-color: var(--bg-dark);
+        }
+        .loader {
+            border: 6px solid #e5e7eb; /* gray-200 */
+            border-top-color: var(--primary-light);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+        }
+        html.dark .loader {
+             border: 6px solid #374151; /* gray-700 */
+             border-top-color: var(--primary-dark);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Style for the typing cursor */
         .typing-cursor {
             display: inline-block;
@@ -29,89 +64,56 @@
             50% { opacity: 0; }
         }
 
-        /* --- Enhanced Animation Styles --- */
-        /* Base state for animated elements */
+        /* --- Glassmorphism Effect for Header --- */
+        header {
+             background-color: rgba(255, 255, 255, 0.7);
+             backdrop-filter: blur(10px);
+             -webkit-backdrop-filter: blur(10px);
+        }
+        html.dark header {
+            background-color: rgba(17, 24, 39, 0.7); /* gray-900 with opacity */
+        }
+        
+        /* --- Advanced Animation & Hover Styles --- */
         .animate-on-scroll {
             opacity: 0;
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, transform; /* Optimize for animation */
+            will-change: opacity, transform;
         }
-        /* Specific animation types */
         .slide-in-up { transform: translateY(30px); }
         .slide-in-left { transform: translateX(-30px); }
         .slide-in-right { transform: translateX(30px); }
         .zoom-in { transform: scale(0.95); }
-
-        /* Visible state */
         .animate-on-scroll.is-visible {
             opacity: 1;
-            transform: translate(0, 0) scale(1); /* Reset transforms */
+            transform: translate(0, 0) scale(1);
         }
-
-        /* Subtle hover effect for skill icons */
         .skill-item:hover i {
             transform: scale(1.15) rotate(5deg);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Elastic transition */
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        /* Enhanced hover for project cards */
         .project-card {
              transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
         }
         .project-card:hover {
-             transform: translateY(-6px) scale(1.02); /* Lift and slightly enlarge */
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind's shadow-lg */
+             transform: translateY(-8px) scale(1.03);
+             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         html.dark .project-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2); /* Darker shadow for dark mode */
-        }
-
-        /* Subtle Gradient Animation for Hero (Optional - can be intensive) */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .hero-gradient-bg {
-            background: linear-gradient(-45deg, #3b82f6, #60a5fa, #93c5fd, #60a5fa); /* Example gradient */
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-        /* Apply gradient only in light mode, or define dark mode gradient */
-        html:not(.dark) #home {
-             /* background: linear-gradient(-45deg, #e0f2fe, #ffffff, #e0f2fe, #ffffff); Light subtle gradient */
-             /* background-size: 400% 400%; */
-             /* animation: gradientShift 25s ease infinite; */
-             /* Decided against default gradient animation for performance, but kept class for potential use */
-        }
-        html.dark #home {
-             /* Define dark mode gradient if needed */
-        }
-
-        /* Accessibility: Reduce motion */
-        @media (prefers-reduced-motion: reduce) {
-          .animate-on-scroll,
-          .skill-item:hover i,
-          .project-card:hover {
-            transition: none;
-            transform: none !important; /* Disable transforms */
-            animation: none !important; /* Disable keyframe animations */
-          }
-          .animate-on-scroll { /* Ensure visible if motion is reduced */
-             opacity: 1;
-          }
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
 
         /* --- Dark Mode Theme Variables --- */
         :root {
-            --bg-light: #ffffff;
+            --bg-light: #f9fafb; /* gray-50 */
             --text-light: #1f2937; /* gray-800 */
-            --card-light: #f9fafb; /* gray-50 */
+            --card-light: #ffffff; 
             --border-light: #e5e7eb; /* gray-200 */
             --primary-light: #3b82f6; /* blue-500 */
             --primary-hover-light: #2563eb; /* blue-600 */
 
             --bg-dark: #111827; /* gray-900 */
-            --text-dark: #f9fafb; /* gray-50 */
+            --text-dark: #f3f4f6; /* gray-100 */
             --card-dark: #1f2937; /* gray-800 */
             --border-dark: #374151; /* gray-700 */
             --primary-dark: #60a5fa; /* blue-400 */
@@ -146,15 +148,33 @@
         html.dark .themed-icon { color: var(--text-dark); }
         .themed-link:hover { color: var(--primary-light); }
         html.dark .themed-link:hover { color: var(--primary-dark); }
-        .themed-input { background-color: var(--card-light); border-color: var(--border-light); color: var(--text-light); }
-        html.dark .themed-input { background-color: var(--card-dark); border-color: var(--border-dark); color: var(--text-dark); }
+        .themed-input { background-color: #f9fafb; border-color: var(--border-light); color: var(--text-light); }
+        html.dark .themed-input { background-color: #374151; border-color: var(--border-dark); color: var(--text-dark); }
         .themed-input::placeholder { color: #9ca3af; }
         html.dark .themed-input::placeholder { color: #6b7280; }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          .animate-on-scroll,
+          .skill-item:hover i,
+          .project-card:hover,
+          header {
+            transition: none;
+            transform: none !important;
+            animation: none !important;
+          }
+          .animate-on-scroll { opacity: 1; }
+        }
     </style>
 </head>
 <body class="themed-bg themed-text antialiased">
+    <!-- Vibrant Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
 
-    <header class="themed-bg sticky top-0 z-50 shadow-md border-b themed-border">
+    <!-- Sticky Header with Glassmorphism -->
+    <header class="sticky top-0 z-50 shadow-sm border-b themed-border">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold themed-primary-text">Aadarsha Jha</a>
             <div class="hidden md:flex space-x-6 items-center">
@@ -163,7 +183,7 @@
                 <a href="#projects" class="themed-text themed-link transition duration-300">Projects</a>
                 <a href="#contact" class="themed-text themed-link transition duration-300">Contact</a>
                 <a href="Aadarsha_Jha_CV.pdf" target="_blank" class="themed-primary-bg text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition duration-300 text-sm">Resume</a>
-                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="themed-icon p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="themed-icon p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
                     <i class="fas fa-moon"></i> <i class="fas fa-sun hidden"></i>
                 </button>
             </div>
@@ -176,7 +196,7 @@
             <a href="#skills" class="block px-6 py-3 themed-text themed-link transition duration-300">Skills</a>
             <a href="#projects" class="block px-6 py-3 themed-text themed-link transition duration-300">Projects</a>
             <a href="#contact" class="block px-6 py-3 themed-text themed-link transition duration-300">Contact</a>
-            <a href="your_resume.pdf" target="_blank" class="block px-6 py-3 themed-text themed-link transition duration-300">Resume</a>
+            <a href="Aadarsha_Jha_CV.pdf" target="_blank" class="block px-6 py-3 themed-text themed-link transition duration-300">Resume</a>
              <div class="px-6 py-3">
                  <button id="darkModeToggleMobile" aria-label="Toggle Dark Mode" class="themed-icon p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 w-full text-left flex items-center">
                      <i class="fas fa-moon mr-2"></i> <i class="fas fa-sun mr-2 hidden"></i> Toggle Theme
@@ -186,7 +206,8 @@
     </header>
 
     <main class="container mx-auto px-6 py-12 overflow-x-hidden">
-        <section id="home" class="min-h-[70vh] flex flex-col md:flex-row items-center justify-center text-center md:text-left py-12 animate-on-scroll zoom-in">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[70vh] flex flex-col md:flex-row items-center justify-center text-center md:text-left py-12 animate-on-scroll zoom-in is-visible">
             <div class="md:w-1/2 mb-10 md:mb-0">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                     Hi, I'm Aadarsha Jha
@@ -195,10 +216,10 @@
                     <span id="typing-effect"></span><span class="typing-cursor"></span>
                 </h2>
                 <p class="text-lg mb-8 themed-text opacity-90">
-                    A passionate BSc. CS student with a love for technology and innovation. <br>
+                    A passionate BSc. CSIT student with a love for technology and innovation. <br>
                     Stack Overflow is my second home,<br>
                     In Lines of code, my thoughts roam.<br>
-                    From Python scripts to Java creams,<br>
+                    From Python scripts to Java dreams,<br>
                     I build the future, or so it seems.<br>
                 </p>
                 <div class="space-x-4">
@@ -207,285 +228,212 @@
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <img src="image/main1.jpg" alt="Aadarsha Jha - Profile Picture Placeholder" class="rounded-full shadow-lg w-64 h-64 md:w-80 md:h-80 object-cover">
+                <img src="image/about me.jpg" onerror="this.onerror=null;this.src='https://placehold.co/320x320/60a5fa/ffffff?text=AJ';" alt="Aadarsha Jha - Profile Picture" class="rounded-full shadow-lg w-64 h-64 md:w-80 md:h-80 object-cover">
             </div>
         </section>
 
+        <!-- About Me Section -->
         <section id="about" class="py-16 md:py-24">
              <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 animate-on-scroll slide-in-up">About Me</h2>
              <div class="flex flex-col md:flex-row items-center gap-12">
                  <div class="md:w-1/3 flex justify-center animate-on-scroll slide-in-left">
-                      <img src="image/about me.jpg" alt="About Me Placeholder" class="rounded-lg shadow-md w-full max-w-xs object-cover">
+                      <img src="image/main1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/300x400/93c5fd/ffffff?text=About';" alt="About Me" class="rounded-lg shadow-md w-full max-w-xs object-cover">
                  </div>
                  <div class="md:w-2/3 animate-on-scroll slide-in-right">
                      <p class="text-lg mb-4 themed-text opacity-90">
-                         Hello! I'm Aadarsha Jha, currently pursuing my Bachelor's in Computer Science and Information Technology (BSc. CSIT) at Saint Xavier's College, Maitighar. I have a strong foundation in computer science principles and a keen interest in [mention 1-2 specific areas like Web Development, AI, Cybersecurity, Data Science, etc.].
+                         Hello! I'm Aadarsha Jha, a student of Computer Science and Information Technology (BSc. CSIT) at Saint Xavier's College, Maitighar. My passion lies in the transformative power of technology, especially in the realms of Cybersecurity and Web3.
                      </p>
                      <p class="text-lg mb-4 themed-text opacity-90">
-                         I enjoy solving complex problems and building things that can make a difference. Throughout my studies, I've worked on various projects, honing my skills in [mention 2-3 key skills/languages like JavaScript, Python, Java, C++, Databases, etc.].
+                         With a strong foundation in Python and a deep interest in decentralized systems, I enjoy tackling complex problems and building innovative solutions. I am constantly exploring new technologies and am dedicated to contributing to a more secure and transparent digital future.
                      </p>
                      <p class="text-lg themed-text opacity-90">
-                         I'm always eager to learn new technologies and collaborate on exciting projects. Currently, I'm focusing on improving my skills in [mention a specific technology or area you are learning]. Outside of academics, I enjoy [mention a hobby or two, e.g., hiking, reading tech blogs, contributing to open source].
+                         I am always eager to learn, collaborate, and grow. Outside of academics, I'm Secretary and active contributor to <a href="www.sxcnstc.live">SXC Network Secuirty Tech Community</a> and enjoy exploring the latest trends in the developer world.
                      </p>
                       <div class="mt-8 flex space-x-4">
                          <a href="https://github.com/cypher-aadarsha" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="themed-icon text-2xl hover:text-blue-500 transition duration-300 transform hover:scale-110"><i class="fab fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/aadarsha-jha-8aa842215/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="themed-icon text-2xl hover:text-blue-700 transition duration-300 transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
-                         </div>
+                      </div>
                  </div>
              </div>
          </section>
-
+        
+        <!-- Skills Section -->
         <section id="skills" class="py-16 md:py-24 bg-opacity-50 themed-card rounded-lg animate-on-scroll zoom-in">
              <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Technical Skills</h2>
              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 text-center">
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-python text-4xl themed-primary-text mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">Python</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-js-square text-4xl text-yellow-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">JavaScript</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-html5 text-4xl text-orange-600 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">HTML5</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-css3-alt text-4xl text-blue-600 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">CSS3</span>
-                 </div>
-                  <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fas fa-file-code text-4xl text-indigo-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">C++</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fas fa-database text-4xl text-green-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">SQL/Databases</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-java text-4xl text-red-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">Java</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                     <i class="fab fa-git-alt text-4xl text-orange-700 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">Git</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                    <i class="fas fa-network-wired text-4xl text-purple-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">Networking</span>
-                 </div>
-                 <div class="skill-item flex flex-col items-center p-4 themed-bg rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                    <i class="fas fa-cogs text-4xl text-gray-500 mb-3 transition-transform duration-300"></i>
-                     <span class="font-medium">Algorithms</span>
-                 </div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-python text-4xl themed-primary-text mb-3"></i><span class="font-medium">Python</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-js-square text-4xl text-yellow-500 mb-3"></i><span class="font-medium">JavaScript</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-html5 text-4xl text-orange-600 mb-3"></i><span class="font-medium">HTML5</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-css3-alt text-4xl text-blue-600 mb-3"></i><span class="font-medium">CSS3</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fas fa-file-code text-4xl text-indigo-500 mb-3"></i><span class="font-medium">C++</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fas fa-database text-4xl text-green-500 mb-3"></i><span class="font-medium">SQL</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-java text-4xl text-red-500 mb-3"></i><span class="font-medium">Java</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fab fa-git-alt text-4xl text-orange-700 mb-3"></i><span class="font-medium">Git & GitHub</span></div>
+                 <div class="skill-item flex flex-col items-center p-4"><i class="fas fa-lock text-4xl text-gray-600 mb-3"></i><span class="font-medium">Cybersecurity</span></div>
              </div>
-             <p class="text-center mt-8 text-sm themed-text opacity-70">Add your specific skills learned during your BSc. CSIT course!</p>
         </section>
 
+        <!-- Projects Section (Synced with GitHub) -->
         <section id="projects" class="py-16 md:py-24 animate-on-scroll slide-in-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Projects</h2>
-
-            <div class="flex justify-center space-x-2 md:space-x-4 mb-10 flex-wrap gap-y-2">
-                <button class="project-filter-btn active px-4 py-2 rounded-md themed-primary-bg text-white text-sm" data-filter="all">All</button>
-                <button class="project-filter-btn px-4 py-2 rounded-md themed-card border themed-border hover:bg-gray-100 dark:hover:bg-gray-700 text-sm" data-filter="web">Web Dev</button>
-                <button class="project-filter-btn px-4 py-2 rounded-md themed-card border themed-border hover:bg-gray-100 dark:hover:bg-gray-700 text-sm" data-filter="python">Python</button>
-                <button class="project-filter-btn px-4 py-2 rounded-md themed-card border themed-border hover:bg-gray-100 dark:hover:bg-gray-700 text-sm" data-filter="java">Java</button>
-                <button class="project-filter-btn px-4 py-2 rounded-md themed-card border themed-border hover:bg-gray-100 dark:hover:bg-gray-700 text-sm" data-filter="cpp">C++</button>
-            </div>
-
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">My Projects</h2>
             <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in" data-category="web node">
-                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Project+1+Screenshot" alt="Project 1 Placeholder" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">E-commerce Backend</h3>
-                        <p class="text-sm themed-text opacity-80 mb-4">
-                            A backend system for an e-commerce platform built with Node.js, featuring API endpoints, and user authentication.
-                        </p>
-                        <div class="mb-4">
-                            <span class="inline-block bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Node.js</span>
-                            <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">MongoDB</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">API Docs</a> <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in" data-category="python data-science" style="transition-delay: 0.1s;"> <img src="https://placehold.co/600x400/10b981/ffffff?text=Project+2+Screenshot" alt="Project 2 Placeholder" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Data Analysis Tool</h3>
-                        <p class="text-sm themed-text opacity-80 mb-4">
-                            A Python script using Pandas and Matplotlib to analyze and visualize dataset trends (e.g., student performance, weather data).
-                        </p>
-                         <div class="mb-4">
-                            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Python</span>
-                            <span class="inline-block bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Pandas</span>
-                            <span class="inline-block bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Matplotlib</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in" data-category="java desktop" style="transition-delay: 0.2s;"> <img src="https://placehold.co/600x400/f59e0b/ffffff?text=Project+3+Screenshot" alt="Project 3 Placeholder" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Simple Java Game</h3>
-                        <p class="text-sm themed-text opacity-80 mb-4">
-                            A basic desktop game (e.g., Snake, Tic-Tac-Toe) developed using Java Swing/AWT for GUI components.
-                        </p>
-                         <div class="mb-4">
-                            <span class="inline-block bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-900 dark:text-orange-300">Java</span>
-                            <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Swing</span>
-                        </div>
-                        <div class="flex space-x-4">
-                             <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in" data-category="web" style="transition-delay: 0.0s;"> <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Project+4+Screenshot" alt="Project 4 Placeholder" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Portfolio Website (This!)</h3>
-                        <p class="text-sm themed-text opacity-80 mb-4">
-                            My personal portfolio built with HTML, Tailwind CSS, and JavaScript to showcase my skills and projects.
-                        </p>
-                         <div class="mb-4">
-                            <span class="inline-block bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">HTML</span>
-                            <span class="inline-block bg-sky-100 text-sky-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">Tailwind</span>
-                             <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">JavaScript</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a href="#home" class="themed-primary-text hover:underline text-sm">Live Demo (Here!)</a>
-                            <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in" data-category="cpp algorithms" style="transition-delay: 0.1s;"> <img src="https://placehold.co/600x400/ec4899/ffffff?text=Project+5+Screenshot" alt="Project 5 Placeholder" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Algorithm Implementation</h3>
-                        <p class="text-sm themed-text opacity-80 mb-4">
-                            Implementation of common data structures and algorithms (e.g., sorting, searching, graphs) in C++.
-                        </p>
-                         <div class="mb-4">
-                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">C++</span>
-                            <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Algorithms</span>
-                         </div>
-                        <div class="flex space-x-4">
-                            <a href="#" target="_blank" class="themed-primary-text hover:underline text-sm">Source Code</a>
-                        </div>
-                    </div>
+                <!-- GitHub projects will be loaded here by JavaScript -->
+                <div class="text-center col-span-full themed-text">
+                    <i class="fas fa-spinner fa-spin text-3xl"></i>
+                    <p class="mt-2">Loading projects from GitHub...</p>
                 </div>
             </div>
-             <p class="text-center mt-8 text-sm themed-text opacity-70">Showcase your best university and personal projects!</p>
+            <p class="text-center mt-12">
+                <a href="https://github.com/cypher-aadarsha?tab=repositories" target="_blank" rel="noopener noreferrer" class="themed-primary-bg text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition duration-300 inline-block transform hover:scale-105">
+                    View All Repositories
+                </a>
+            </p>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="py-16 md:py-24 themed-card rounded-lg animate-on-scroll slide-in-up">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Get In Touch</h2>
             <div class="max-w-2xl mx-auto">
                 <p class="text-center mb-8 themed-text opacity-90">
-                    Have a question, opportunity, or just want to connect? Feel free to reach out!
+                    Have a question, opportunity, or just want to connect? I'd love to hear from you!
                 </p>
                 <form id="contactForm" action="https://formspree.io/f/xnndlopq" method="POST" class="space-y-6">
                     <div>
                         <label for="name" class="block text-sm font-medium mb-1">Name</label>
-                        <input type="text" id="name" name="name" required
-                               class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300">
-                        <p class="text-red-500 text-xs mt-1 error-message hidden">Please enter your name.</p>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300">
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium mb-1">Email</label>
-                        <input type="email" id="email" name="email" required
-                               class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300">
-                         <p class="text-red-500 text-xs mt-1 error-message hidden">Please enter a valid email address.</p>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300">
                     </div>
                     <div>
                         <label for="message" class="block text-sm font-medium mb-1">Message</label>
-                        <textarea id="message" name="message" rows="5" required
-                                  class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300"></textarea>
-                        <p class="text-red-500 text-xs mt-1 error-message hidden">Please enter your message.</p>
+                        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 themed-input border themed-border rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300"></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit"
-                                class="themed-primary-bg text-white px-8 py-3 rounded-md hover:bg-opacity-90 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105">
+                        <button type="submit" class="themed-primary-bg text-white px-8 py-3 rounded-md hover:bg-opacity-90 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105">
                             Send Message
                         </button>
                     </div>
                      <p id="formStatus" class="text-center mt-4 text-sm"></p>
                 </form>
-                 <p class="text-center mt-6 text-xs themed-text opacity-70">
-                 <a href="https://formspree.io/" target="_blank" rel="noopener noreferrer" class="themed-primary-text underline"></a>.
-                 </p>
             </div>
         </section>
 
     </main>
 
+    <!-- Footer -->
     <footer class="themed-bg border-t themed-border mt-16 md:mt-24">
         <div class="container mx-auto px-6 py-8 text-center themed-text opacity-80">
              <div class="mb-4 flex justify-center space-x-6">
                  <a href="https://github.com/cypher-aadarsha" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="themed-icon text-xl hover:text-blue-500 transition duration-300 transform hover:scale-110"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/aadarsha-jha-8aa842215/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="themed-icon text-xl hover:text-blue-700 transition duration-300 transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
-                </div>
+             </div>
             <p class="text-sm">&copy; <span id="currentYear"></span> Aadarsha Jha. All rights reserved.</p>
-            <p class="text-xs mt-2">Built with <i class="fas fa-heart text-red-500"></i> using HTML, Tailwind CSS, and JavaScript.</p>
+            <p class="text-xs mt-2">Built with <i class="fas fa-heart text-red-500"></i> and a lot of coffee.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Mobile Menu Toggle --- (No changes needed)
+            // --- Preloader Logic ---
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 500);
+            });
+
+            // --- GitHub Projects Fetching ---
+            async function fetchGitHubProjects() {
+                const username = 'cypher-aadarsha';
+                // Fetch repositories sorted by update date, and get the most recent ones
+                const url = `https://api.github.com/users/${username}/repos?sort=updated&direction=desc`;
+                const projectGrid = document.getElementById('projectGrid');
+                
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    const projects = await response.json();
+                    
+                    projectGrid.innerHTML = ''; // Clear the loading spinner
+
+                    // Filter out forks if you want, and take the latest 6
+                    const latestProjects = projects.filter(p => !p.fork).slice(0, 6);
+
+                    latestProjects.forEach(project => {
+                        const projectCard = document.createElement('div');
+                        projectCard.className = 'project-card themed-card border themed-border rounded-lg shadow-md overflow-hidden animate-on-scroll zoom-in';
+                        
+                        const languageColor = {
+                            "JavaScript": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+                            "Python": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+                            "HTML": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+                            "CSS": "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300",
+                            "Java": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+                            "C++": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300",
+                            "default": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                        };
+                        const langColorClass = languageColor[project.language] || languageColor.default;
+
+                        projectCard.innerHTML = `
+                            <img src="https://socialify.git.ci/${username}/${project.name}/image?theme=Dark&font=Inter" onerror="this.onerror=null;this.src='https://placehold.co/600x400/3b82f6/ffffff?text=${project.name}';" alt="Project: ${project.name}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">${project.name}</h3>
+                                <p class="text-sm themed-text opacity-80 mb-4 h-16 overflow-hidden">
+                                    ${project.description || 'A project I\'m working on. Check it out on GitHub for more details!'}
+                                </p>
+                                <div class="mb-4">
+                                    ${project.language ? `<span class="inline-block ${langColorClass} text-xs font-medium mr-2 px-2.5 py-0.5 rounded">${project.language}</span>` : ''}
+                                    <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">⭐ ${project.stargazers_count}</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="${project.html_url}" target="_blank" rel="noopener noreferrer" class="themed-primary-text hover:underline text-sm font-medium">Source Code</a>
+                                    ${project.homepage ? `<a href="${project.homepage}" target="_blank" rel="noopener noreferrer" class="themed-primary-text hover:underline text-sm font-medium">Live Demo</a>` : ''}
+                                </div>
+                            </div>
+                        `;
+                        projectGrid.appendChild(projectCard);
+                    });
+                     // Re-initialize scroll animations for new elements
+                    initializeScrollAnimations();
+
+                } catch (error) {
+                    projectGrid.innerHTML = `<p class="text-center col-span-full text-red-500">Failed to load projects. Please try again later. (${error.message})</p>`;
+                    console.error("Failed to fetch GitHub projects:", error);
+                }
+            }
+            fetchGitHubProjects();
+            
+            // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                    const icon = mobileMenuButton.querySelector('i');
-                    if (icon) {
-                        icon.classList.toggle('fa-bars');
-                        icon.classList.toggle('fa-times');
-                    }
-                });
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                         mobileMenu.classList.add('hidden');
-                         const icon = mobileMenuButton.querySelector('i');
-                         if (icon) {
-                            icon.classList.remove('fa-times');
-                            icon.classList.add('fa-bars');
-                         }
-                    });
-                });
-            }
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuButton.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); mobileMenuButton.querySelector('i').className = 'fas fa-bars text-xl'; });
+            });
 
-            // --- Smooth Scrolling --- (No changes needed)
+            // --- Smooth Scrolling ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    if (this.getAttribute('href') !== '#' && !this.closest('#mobileMenu')) {
-                         e.preventDefault();
-                         const targetId = this.getAttribute('href');
-                         const targetElement = document.querySelector(targetId);
-                         if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                         }
-                    } else if (this.getAttribute('href') !== '#' && this.closest('#mobileMenu')) {
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                           setTimeout(() => {
-                               targetElement.scrollIntoView({ behavior: 'smooth' });
-                           }, 100);
-                        }
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
 
-            // --- Typing Effect --- (No changes needed)
+            // --- Typing Effect ---
             const typingElement = document.getElementById('typing-effect');
             if (typingElement) {
-                const textToType = "BSc. CSIT Student & Aspiring Developer";
+                const textToType = "BSc. CSIT Student & Cybersecurity Enthusiast";
                 let index = 0; let isDeleting = false; let delay = 150;
                 function type() {
                     const currentText = textToType.substring(0, index);
@@ -498,82 +446,62 @@
                 setTimeout(type, 500);
             }
 
-            // --- Project Filtering --- (No changes needed)
-            const filterButtons = document.querySelectorAll('.project-filter-btn');
-            const projectCards = document.querySelectorAll('.project-card');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const filter = button.getAttribute('data-filter');
-                    filterButtons.forEach(btn => btn.classList.remove('active', 'themed-primary-bg', 'text-white'));
-                    filterButtons.forEach(btn => btn.classList.add('themed-card', 'border', 'themed-border', 'hover:bg-gray-100', 'dark:hover:bg-gray-700'));
-                    button.classList.add('active', 'themed-primary-bg', 'text-white');
-                    button.classList.remove('themed-card', 'border', 'themed-border', 'hover:bg-gray-100', 'dark:hover:bg-gray-700');
+            // --- Scroll Animations ---
+            function initializeScrollAnimations() {
+                const animatedElements = document.querySelectorAll('.animate-on-scroll');
+                if ("IntersectionObserver" in window) {
+                    const scrollObserver = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                                // Optional: stop observing once it's visible
+                                // observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
-                    projectCards.forEach(card => {
-                        const categories = card.getAttribute('data-category').split(' ');
-                        const shouldShow = filter === 'all' || categories.includes(filter);
-                        if (shouldShow) {
-                            card.style.display = 'block';
-                            setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0) scale(1)'; }, 10);
-                        } else {
-                            card.style.opacity = '0'; card.style.transform = 'scale(0.95)';
-                            setTimeout(() => { card.style.display = 'none'; }, 300);
-                        }
-                    });
-                });
-            });
-
-            // --- Enhanced Scroll Animations --- (No changes needed)
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            const scrollObserverOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
-            const scrollObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        // observer.unobserve(entry.target); // Optional
-                    }
-                    // else { // Optional: Animate out
-                    //     entry.target.classList.remove('is-visible');
-                    // }
-                });
-            }, scrollObserverOptions);
-            animatedElements.forEach(el => { scrollObserver.observe(el); });
-
-            // --- Contact Form Validation --- (No changes needed)
+                    animatedElements.forEach(el => { scrollObserver.observe(el); });
+                } else {
+                    // Fallback for older browsers
+                    animatedElements.forEach(el => el.classList.add('is-visible'));
+                }
+            }
+            initializeScrollAnimations();
+            
+            // --- Contact Form Handling ---
             const contactForm = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(event) {
-                    let isValid = true;
-                    formStatus.textContent = ''; formStatus.classList.remove('text-green-500', 'text-red-500');
-                    contactForm.querySelectorAll('.error-message').forEach(msg => msg.classList.add('hidden'));
-                    contactForm.querySelectorAll('input, textarea').forEach(input => input.classList.remove('border-red-500'));
-                    const nameInput = contactForm.querySelector('#name');
-                    if (!nameInput.value.trim()) { isValid = false; showError(nameInput, 'Please enter your name.'); }
-                    const emailInput = contactForm.querySelector('#email');
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailInput.value.trim() || !emailPattern.test(emailInput.value)) { isValid = false; showError(emailInput, 'Please enter a valid email address.'); }
-                    const messageInput = contactForm.querySelector('#message');
-                    if (!messageInput.value.trim()) { isValid = false; showError(messageInput, 'Please enter your message.'); }
-                    if (!isValid) {
-                        event.preventDefault();
-                        formStatus.textContent = 'Please correct the errors above.';
-                        formStatus.classList.add('text-red-500');
-                    } else {
-                        formStatus.textContent = 'Sending...'; formStatus.classList.add('themed-text');
-                        contactForm.querySelector('button[type="submit"]').disabled = true;
-                    }
-                });
-            }
-            function showError(inputElement, message) {
-                inputElement.classList.add('border-red-500');
-                const errorElement = inputElement.parentElement.querySelector('.error-message');
-                if (errorElement) { errorElement.textContent = message; errorElement.classList.remove('hidden'); }
-            }
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                formStatus.textContent = 'Sending...';
+                formStatus.className = 'text-center mt-4 text-sm themed-text';
+                submitButton.disabled = true;
 
-            // --- Dark Mode Toggle --- (No changes needed)
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+                const formData = new FormData(contactForm);
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: contactForm.method,
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        formStatus.textContent = "Thanks! Your message has been sent.";
+                        formStatus.className = 'text-center mt-4 text-sm text-green-500';
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                } catch (error) {
+                    formStatus.textContent = "Oops! There was a problem submitting your form.";
+                    formStatus.className = 'text-center mt-4 text-sm text-red-500';
+                } finally {
+                    submitButton.disabled = false;
+                }
+            });
+
+            // --- Dark Mode Toggle ---
+            const darkModeToggles = document.querySelectorAll('#darkModeToggle, #darkModeToggleMobile');
             const htmlElement = document.documentElement;
             const moonIcons = document.querySelectorAll('.fa-moon');
             const sunIcons = document.querySelectorAll('.fa-sun');
@@ -587,18 +515,16 @@
             let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
             applyTheme(isDarkMode);
             const toggleDarkMode = () => {
-                isDarkMode = !isDarkMode; applyTheme(isDarkMode);
+                isDarkMode = !isDarkMode;
+                applyTheme(isDarkMode);
                 localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             };
-            if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-            if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+            darkModeToggles.forEach(toggle => toggle.addEventListener('click', toggleDarkMode));
 
-            // --- Update Footer Year --- (No changes needed)
-            const currentYearElement = document.getElementById('currentYear');
-            if (currentYearElement) { currentYearElement.textContent = new Date().getFullYear(); }
+            // --- Update Footer Year ---
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        }); // End DOMContentLoaded
+        });
     </script>
 </body>
 </html>
-<!-- End of HTML Document -->
